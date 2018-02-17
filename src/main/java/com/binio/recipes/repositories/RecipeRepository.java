@@ -1,4 +1,7 @@
 package com.binio.recipes.repositories;
 
-public interface RecipeRepository {
+import com.binio.recipes.domain.Recipe;
+import org.springframework.data.repository.CrudRepository;
+
+public interface RecipeRepository extends CrudRepository<Recipe, Long>{
 }
