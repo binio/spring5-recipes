@@ -11,6 +11,8 @@ public class Ingredient {
     private Long id;
     private String description;
     private BigDecimal amout;
+    @OneToOne(fetch = FetchType.EAGER)
+    private UnitOfMeasure unitMeasure;
     @ManyToOne
     private Recipe recipe;
 
@@ -36,6 +38,14 @@ public class Ingredient {
 
     public void setAmout(BigDecimal amout) {
         this.amout = amout;
+    }
+
+    public UnitOfMeasure getUnitMeasure() {
+        return unitMeasure;
+    }
+
+    public void setUnitMeasure(UnitOfMeasure unitMeasure) {
+        this.unitMeasure = unitMeasure;
     }
 
     public Recipe getRecipe() {
