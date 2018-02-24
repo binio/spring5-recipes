@@ -6,6 +6,13 @@ import java.math.BigDecimal;
 @Entity
 public class Ingredient {
 
+    public Ingredient(String description, BigDecimal amout, UnitOfMeasure unitMeasure, Recipe recipe) {
+        this.description = description;
+        this.amout = amout;
+        this.unitMeasure = unitMeasure;
+        this.recipe = recipe;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
