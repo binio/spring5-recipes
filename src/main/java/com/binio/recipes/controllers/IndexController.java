@@ -4,7 +4,9 @@ import com.binio.recipes.domain.Category;
 import com.binio.recipes.domain.UnitOfMeasure;
 import com.binio.recipes.repositories.CategoryRepository;
 import com.binio.recipes.repositories.UnitOfMeasureRepository;
+import com.binio.recipes.services.RecipeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
@@ -12,20 +14,15 @@ import java.util.Optional;
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository uomRepository;
+    private RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository uomRepository) {
-        this.categoryRepository = categoryRepository;
-        this.uomRepository = uomRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"/", "index"})
-    public String getIndexPage() {
-        Optional<Category> categoryOptional = categoryRepository.findByDescription("American");
-        Optional<UnitOfMeasure> uomOptional = uomRepository.findByOum("Teaspoon");
-        System.out.println("category: " + categoryOptional.get().getId());
-        System.out.println("unitOfMeasure: " + uomOptional.get().getId());
+    public String getIndexPage(Model model) {
+        model.addAttribute("recipes", recipeService.getAllRecipes());
         return "index";
     }
 }
