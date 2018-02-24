@@ -32,6 +32,11 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     private void initData() {
 
+        addGuacamole();
+        addTacos();
+    }
+
+    private void addGuacamole() {
         Set<Category> categories1 = new HashSet<>();
         categories1.add(this.categoryRepository.findByDescription("Mexican").get());
         categories1.add(this.categoryRepository.findByDescription("Vegan").get());
@@ -121,6 +126,67 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         ingredients1.add(i7);
         ingredients1.add(i8);
         ingredients1.add(i9);
+
+
+        recipe1.setIngredients(ingredients1);
+        recipeRepository.save(recipe1);
+    }
+
+    private void addTacos() {
+        Set<Category> categories1 = new HashSet<>();
+        categories1.add(this.categoryRepository.findByDescription("Mexican").get());
+        categories1.add(this.categoryRepository.findByDescription("Gluten free").get());
+        categories1.add(this.categoryRepository.findByDescription("Tex Mex").get());
+
+        Set<Ingredient> ingredients1 = new HashSet<>();
+
+        Recipe recipe1 = new Recipe();
+        recipe1.setCookTime(10);
+        recipe1.setPrepTime(10);
+        recipe1.setServings(5);
+        recipe1.setDifficulty(Difficulty.EASY);
+        recipe1.setCategories(categories1);
+        recipe1.setDirections("" +
+                "Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon." +
+                "Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)" +
+                "Add salt, lime juice, and the rest: Sprinkle with salt and lime (or lemon) juice. The acid in the lime juice will provide some balance to the richness of the avocado and will help delay the avocados from turning brown.\n" +
+                "\n" +
+                "Add the chopped onion, cilantro, black pepper, and chiles. Chili peppers vary individually in their hotness. So, start with a half of one chili pepper and add to the guacamole to your desired degree of hotness.\n" +
+                "\n" +
+                "Remember that much of this is done to taste because of the variability in the fresh ingredients. Start with this recipe and adjust to your taste." +
+                "Cover with plastic and chill to store: Place plastic wrap on the surface of the guacamole cover it and to prevent air reaching it. (The oxygen in the air causes oxidation which will turn the guacamole brown.) Refrigerate until ready to serve.\n" +
+                "\n" +
+                "Chilling tomatoes hurts their flavor, so if you want to add chopped tomato to your guacamole, add it just before serving." +
+                "For a very quick guacamole just take a 1/4 cup of salsa and mix it in with your mashed avocados.\n" +
+                "\n" +
+                "Feel free to experiment! One classic Mexican guacamole has pomegranate seeds and chunks of peaches in it (a Diana Kennedy favorite). Try guacamole with added pineapple, mango, or strawberries (see our Strawberry Guacamole).\n" +
+                "\n" +
+                "The simplest version of guacamole is just mashed avocados with salt. Don't let the lack of availability of other ingredients stop you from making guacamole.\n" +
+                "\n" +
+                "To extend a limited supply of avocados, add either sour cream or cottage cheese to your guacamole dip. Purists may be horrified, but so what? It tastes great.");
+        recipe1.setDescription("Cheese Tacos");
+        recipe1.setUrl("http://recipe.com");
+
+
+        Ingredient i1 = new Ingredient(
+                "Corn tortillas",
+                new BigDecimal(5.0),
+                this.unitOfMeasureRepository.findByOum("Teaspoon").get(),
+                recipe1);
+        Ingredient i2 = new Ingredient(
+                "Butter",
+                new BigDecimal(200.0),
+                this.unitOfMeasureRepository.findByOum("gram").get(),
+                recipe1);
+        Ingredient i3 = new Ingredient(
+                "Salsa",
+                new BigDecimal(1.0),
+                this.unitOfMeasureRepository.findByOum("Jar").get(),
+                recipe1);
+
+        ingredients1.add(i1);
+        ingredients1.add(i2);
+        ingredients1.add(i3);
 
 
         recipe1.setIngredients(ingredients1);
