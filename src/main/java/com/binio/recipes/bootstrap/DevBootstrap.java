@@ -7,6 +7,7 @@ import com.binio.recipes.domain.Recipe;
 import com.binio.recipes.repositories.CategoryRepository;
 import com.binio.recipes.repositories.RecipeRepository;
 import com.binio.recipes.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
