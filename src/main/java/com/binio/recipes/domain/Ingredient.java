@@ -1,8 +1,13 @@
 package com.binio.recipes.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Data
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Ingredient {
 
@@ -11,6 +16,9 @@ public class Ingredient {
         this.amout = amout;
         this.unitMeasure = unitMeasure;
         this.recipe = recipe;
+    }
+
+    public Ingredient() {
     }
 
     @Id
@@ -23,43 +31,5 @@ public class Ingredient {
     @ManyToOne
     private Recipe recipe;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getAmout() {
-        return amout;
-    }
-
-    public void setAmout(BigDecimal amout) {
-        this.amout = amout;
-    }
-
-    public UnitOfMeasure getUnitMeasure() {
-        return unitMeasure;
-    }
-
-    public void setUnitMeasure(UnitOfMeasure unitMeasure) {
-        this.unitMeasure = unitMeasure;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
 }
