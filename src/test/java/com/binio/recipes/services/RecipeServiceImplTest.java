@@ -7,7 +7,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -27,6 +29,19 @@ public class RecipeServiceImplTest {
 
     @Test
     public void getAllRecipes() {
+        Set<Recipe> recipes = new HashSet<>();
+        Recipe r1 = new Recipe();
+        r1.setId(1L);
+        r1.setDescription("abc");
+
+        Recipe r2 = new Recipe();
+        r1.setId(2L);
+        recipes.add(r1);
+        recipes.add(r2);
+
+        when(recipeRepository.findAll()).thenReturn(recipes);
+        Set<Recipe> result = recipeService.getAllRecipes();
+        assertEquals(recipes.size(), result.size());
     }
 
     @Test
