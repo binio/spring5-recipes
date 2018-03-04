@@ -1,12 +1,10 @@
 package com.binio.recipes.bootstrap;
 
-import com.binio.recipes.domain.Category;
-import com.binio.recipes.domain.Difficulty;
-import com.binio.recipes.domain.Ingredient;
-import com.binio.recipes.domain.Recipe;
+import com.binio.recipes.domain.*;
 import com.binio.recipes.repositories.CategoryRepository;
 import com.binio.recipes.repositories.RecipeRepository;
 import com.binio.recipes.repositories.UnitOfMeasureRepository;
+import com.sun.tools.corba.se.idl.constExpr.Not;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -129,8 +127,13 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         ingredients1.add(i8);
         ingredients1.add(i9);
 
+        Notes notes = new Notes();
+        notes.setRecipeNotes("hello hello 123");
+        notes.setRecipe(recipe1);
+
 
         recipe1.setIngredients(ingredients1);
+        recipe1.setNotes(notes);
         recipeRepository.save(recipe1);
     }
 
