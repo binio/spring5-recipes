@@ -5,26 +5,39 @@ import com.binio.recipes.domain.Category;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.*;
 
-public class CategoryToCategoryCommandTest {
+public class CategoryCommandToCategoryTest {
 
-    public static final long ID = 123L;
+    public static final Long ID = new Long(123L);
     public static final String DESCRIPTION = "description";
 
-    CategoryToCategoryCommand converter;
-    Category category;
+    CategoryCommandToCategory converter;
+    CategoryCommand categoryCommand;
 
     @Before
     public void setUp() {
-        category = new Category();
-        category.setId(ID);
-        category.setDescription(DESCRIPTION);
-        converter = new CategoryToCategoryCommand();
+        categoryCommand = new CategoryCommand();
+        categoryCommand.setId(ID);
+        categoryCommand.setDescription(DESCRIPTION);
+        converter = new CategoryCommandToCategory();
     }
 
     @Test
-    public void convert() {
-        CategoryCommand converter.convert(category);
+    public void convertTest() {
+        Category c =  converter.convert(categoryCommand);
+        assertEquals(ID, c.getId());
+        assertEquals(DESCRIPTION, c.getDescription());
+    }
+
+    @Test
+    public void convertEmptyObject() {
+        assertNotNull(converter.convert(new CategoryCommand()));
+    }
+
+    @Test
+    public void convertNullObject() {
+        assertNull(converter.convert(null));
     }
 }
