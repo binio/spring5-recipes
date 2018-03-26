@@ -18,6 +18,12 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
         if(ingredientCommand == null) {
             return null;
         }
-        return null;
+        Ingredient ingredient = new Ingredient();
+        ingredient.setDescription(ingredientCommand.getDescription());
+        ingredient.setUnitMeasure(ingredientCommand.getUnitMeasure());
+        ingredient.setAmout(ingredientCommand.getAmout());
+        ingredient.setId(ingredientCommand.getId());
+        return ingredient;
+
     }
 }
