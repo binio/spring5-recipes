@@ -35,6 +35,8 @@ public class IngredientToIngredientCommandTest {
     public void convert() {
         IngredientCommand command = ingredientToIngredientCommand.convert(ingredient);
         assertThat(command.getDescription(), is(INGREDIENT_DESCRIPTION));
+        assertThat(command.getAmout(), is(INGREDIENT_AMOUT));
+        assertThat(command.getId(), is(INGREDIENT_ID));
     }
 
     @Test
