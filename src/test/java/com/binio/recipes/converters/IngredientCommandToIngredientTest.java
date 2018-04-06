@@ -2,6 +2,7 @@ package com.binio.recipes.converters;
 
 import com.binio.recipes.commands.CategoryCommand;
 import com.binio.recipes.commands.IngredientCommand;
+import com.binio.recipes.commands.UnitOfMeasureCommand;
 import com.binio.recipes.domain.Ingredient;
 import com.binio.recipes.domain.UnitOfMeasure;
 import org.junit.Before;
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class IngredientCommandToIngredientTest {
@@ -24,7 +26,7 @@ public class IngredientCommandToIngredientTest {
 
     @Before
     public void setUp() throws Exception {
-        UnitOfMeasure oum = new UnitOfMeasure();
+        UnitOfMeasureCommand oum = new UnitOfMeasureCommand();
         oum.setId(UOM_ID);
         oum.setOum(UOM_KILOGRAMS);
 
@@ -32,7 +34,7 @@ public class IngredientCommandToIngredientTest {
         this.ingredientCommand.setAmout(CMD_AMOUT);
         this.ingredientCommand.setDescription(CMD_DESCRIPTION);
         this.ingredientCommand.setId(CMD_ID);
-        this.ingredientCommand.setUnitMeasure(oum);
+        this.ingredientCommand.setUnitOfMeasureCommand(oum);
 
         ingredientCommandToIngredient = new IngredientCommandToIngredient();
     }
@@ -42,6 +44,9 @@ public class IngredientCommandToIngredientTest {
         assertEquals(CMD_AMOUT, ingredient.getAmout());
         assertEquals(CMD_DESCRIPTION, ingredient.getDescription());
         assertEquals(new Long(CMD_ID), ingredient.getId());
+
+        assertThat(ingredient.getUnitMeasure().getId(), is(UOM_ID));
+        assertThat(ingredient.getUnitMeasure().getOum(), is(UOM_KILOGRAMS));
 
     }
 
