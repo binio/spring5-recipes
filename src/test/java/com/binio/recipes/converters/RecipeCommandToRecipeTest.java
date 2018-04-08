@@ -1,15 +1,17 @@
 package com.binio.recipes.converters;
 
-import com.binio.recipes.commands.CategoryCommand;
-import com.binio.recipes.commands.IngredientCommand;
-import com.binio.recipes.commands.NotesCommand;
-import com.binio.recipes.commands.RecipeCommand;
+import com.binio.recipes.commands.*;
 import com.binio.recipes.domain.Difficulty;
+import com.binio.recipes.domain.Recipe;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
+
 
 public class RecipeCommandToRecipeTest {
 
@@ -24,7 +26,15 @@ public class RecipeCommandToRecipeTest {
     public static final int COMMAND_SERVINGS = 2;
     public static final String COMMAND_SOURCE = "source";
     public static final String COMMAND_URL = "url";
-    RecipeCommandToRecipe converter = new RecipeCommandToRecipe();
+    public static final long CATEGORY_ID = 123L;
+    public static final String CATEGORY_DESCRIPTION = "categoryDescription";
+    public static final long INGREDIENT_ID = 123L;
+    public static final BigDecimal INGREDIENT_AMOUT = new BigDecimal(123);
+    public static final String INGREDIENT_DESCRIPTION = "ingredientDescription";
+    public static final long UNIT_OF_MESURE_ID = 123L;
+    public static final String UNIT_OF_MESURE_NAME = "kilogram";
+
+    RecipeCommandToRecipe converter = new RecipeCommandToRecipe(new CategoryCommandToCategory(), new IngredientCommandToIngredient(),new NotesCommandToNotes());
     RecipeCommand command;
 
     @Before
@@ -46,6 +56,15 @@ public class RecipeCommandToRecipeTest {
 
     }
 
+    @Test
+    public void testConversion() {
+        Recipe recipe = converter.convert(command);
+        assertThat(recipe.getId(), is(COMMAND_ID));
+        assertThat(recipe.getDescription(), is(COMMAND_DESCRIPTION));
+        assertThat(recipe.getCookTime(), is(COMMAND_COOK_TIME));
+
+    }
+
     private NotesCommand getNotesCommand() {
         NotesCommand notesCmd = new NotesCommand();
         notesCmd.setId(NOTES_ID);
@@ -55,8 +74,8 @@ public class RecipeCommandToRecipeTest {
 
     private Set<CategoryCommand> getCategories() {
         CategoryCommand categoryCommand = new CategoryCommand();
-        categoryCommand.setId(123L);
-        categoryCommand.setDescription("categoryDescription");
+        categoryCommand.setId(CATEGORY_ID);
+        categoryCommand.setDescription(CATEGORY_DESCRIPTION);
 
         Set<CategoryCommand> set = new HashSet<>();
         set.add(categoryCommand);
@@ -66,14 +85,21 @@ public class RecipeCommandToRecipeTest {
 
     private Set<IngredientCommand> getIngredients() {
         IngredientCommand ingredientCommand = new IngredientCommand();
-        ingredientCommand.setId(123L);
+        ingredientCommand.setId(INGREDIENT_ID);
         ingredientCommand.setUnitOfMeasureCommand(getUnitOfMeasure());
-        ingredientCommand.setAmout(new BigDecimal(123));
-        ingredientCommand.setDescription("ingredientDescription");
+        ingredientCommand.setAmout(INGREDIENT_AMOUT);
+        ingredientCommand.setDescription(INGREDIENT_DESCRIPTION);
 
         Set<IngredientCommand> set = new HashSet<>();
         set.add(ingredientCommand);
         return set;
+    }
+
+    private UnitOfMeasureCommand getUnitOfMeasure() {
+        UnitOfMeasureCommand command = new UnitOfMeasureCommand();
+        command.setId(UNIT_OF_MESURE_ID);
+        command.setOum(UNIT_OF_MESURE_NAME);
+        return command;
     }
 
 }
