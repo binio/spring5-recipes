@@ -67,7 +67,7 @@ public class RecipeCommandToRecipeTest {
     private Set<IngredientCommand> getIngredients() {
         IngredientCommand ingredientCommand = new IngredientCommand();
         ingredientCommand.setId(123L);
-        ingredientCommand.setUnitOfMeasureCommand();
+        ingredientCommand.setUnitOfMeasureCommand(getUnitOfMeasure());
         ingredientCommand.setAmout(new BigDecimal(123));
         ingredientCommand.setDescription("ingredientDescription");
 
