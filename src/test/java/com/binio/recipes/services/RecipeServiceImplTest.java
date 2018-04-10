@@ -1,5 +1,7 @@
 package com.binio.recipes.services;
 
+import com.binio.recipes.converters.RecipeCommandToRecipe;
+import com.binio.recipes.converters.RecipeToRecipeCommand;
 import com.binio.recipes.domain.Recipe;
 import com.binio.recipes.repositories.RecipeRepository;
 import org.junit.Before;
@@ -21,10 +23,15 @@ public class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
     @Before
     public void setUp() throws  Exception{
         MockitoAnnotations.initMocks(this);
-            recipeService = new RecipeServiceImpl(recipeRepository);
+            recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
