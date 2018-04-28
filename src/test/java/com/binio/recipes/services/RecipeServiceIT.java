@@ -1,5 +1,7 @@
 package com.binio.recipes.services;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -19,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class RecipeServiceIT {
 
+    public static final String NEW_DESCRIPTION = "New description";
     @Autowired
     RecipeService recipeService;
     @Autowired
@@ -37,8 +40,10 @@ public class RecipeServiceIT {
         Recipe recipe = recipes.iterator().next();
         RecipeCommand recipeCommand = recipeToRecipeCommand.convert(recipe);
 
-        recipeCommand.setDescription("New description");
+        recipeCommand.setDescription(NEW_DESCRIPTION);
         RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(recipeCommand);
+
+        assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());
     }
 
 
